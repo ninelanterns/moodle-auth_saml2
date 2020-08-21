@@ -574,8 +574,12 @@ class auth_plugin_saml2 extends auth_plugin_base {
             if ($this->config->tolower) {
                 $this->log(__FUNCTION__ . " to lowercase for $key => $uid");
                 $uid = strtolower($uid);
+	            $user = $DB->get_record_select('user', "LOWER({$this->config->mdlattr}) = :value AND deleted = 0", array('value' => $uid));
+            }else{
+	            $user = $DB->get_record('user', array( $this->config->mdlattr => $uid, 'deleted' => 0 ));
             }
-            if ($user = $DB->get_record('user', array( $this->config->mdlattr => $uid, 'deleted' => 0 ))) {
+
+            if (!empty($user)) {
                 continue;
             }
         }
