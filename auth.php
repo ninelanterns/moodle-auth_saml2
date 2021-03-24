@@ -462,7 +462,8 @@ class auth_plugin_saml2 extends auth_plugin_base {
         // attempt to login manually.
         $saml = optional_param('saml', 1, PARAM_BOOL);
         $noredirect = optional_param('noredirect', 0, PARAM_BOOL);
-        if (!empty($noredirect)) {
+        $nosaml = optional_param('nosaml', 0, PARAM_BOOL);
+        if (!empty($noredirect) || !empty($nosaml)) {
             $saml = 0;
         }
 
