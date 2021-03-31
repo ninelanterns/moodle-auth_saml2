@@ -549,8 +549,19 @@ class auth_plugin_saml2 extends auth_plugin_base {
         $this->saml_login_complete($attributes);
     }
 
+	/**
+	 * Allowing persistent login
+	 *
+	 * @param stdClass $user
+	 *
+	 * @return bool
+	 */
+	public function allow_persistent_login(stdClass $user) {
+		return true;
+    }
 
-    /**
+
+	/**
      * The user has done the SAML handshake now we can log them in
      *
      * This is split so we can handle SP and IdP first login flows.
@@ -665,6 +676,13 @@ class auth_plugin_saml2 extends auth_plugin_base {
         $USER->loggedin = true;
         $USER->site = $CFG->wwwroot;
         set_moodle_cookie($USER->username);
+
+        // Enable persistent login
+	    $persistent_login = get_config('auth_saml', 'persistent_login');
+        if(!empty($user) && $persistent_login){
+	        \totara_core\persistent_login::start();
+	    }
+
 
         $wantsurl = core_login_get_return_url();
         // If we are not on the page we want, then redirect to it.

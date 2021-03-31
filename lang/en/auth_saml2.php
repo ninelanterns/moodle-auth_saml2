@@ -195,3 +195,7 @@ $string['sha512'] = 'SHA512';
 $string['signaturealgorithm'] = 'Signing Algorithm';
 $string['signaturealgorithm_help'] = 'This is the algorithm that will be used to sign SAML requests. Warning: The SHA1 Algorithm is only provided for backwards compatibility, unless you absolutely must use it it is recommended to avoid it and use at least SHA256 instead.';
 $string['selectloginservice'] = 'Select a login service';
+
+// Persistent login for saml
+$string['auth_saml_persistent_login'] = 'Enable Persistent login';
+$string['auth_saml_persistent_login_description'] = 'User is logged in permanently until the user logs out';

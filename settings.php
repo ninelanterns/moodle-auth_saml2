@@ -288,6 +288,14 @@ if ($ADMIN->fulltree) {
         1,
         $yesno));
 
+	// Persistent login
+	$name = 'auth_saml/persistent_login';
+	$title = get_string('auth_saml_persistent_login', 'auth_saml');
+	$description = get_string('auth_saml_persistent_login_description', 'auth_saml');
+	$default = false;
+	$setting = new admin_setting_configcheckbox($name, $title, $description, $default, true, false);
+	$settings->add($setting);
+
     // SAMLPHP version.
     $authplugin = get_auth_plugin('saml2');
     $settings->add(new setting_textonly(
@@ -339,7 +347,7 @@ if ($ADMIN->fulltree) {
         50,
         3));
 
-    if (moodle_major_version() < '3.3') {
+	if (moodle_major_version() < '3.3') {
         auth_saml2_display_auth_lock_options($settings, $authplugin->authtype, $authplugin->userfields, $help, true, true,
             $authplugin->get_custom_user_profile_fields());
     } else {
